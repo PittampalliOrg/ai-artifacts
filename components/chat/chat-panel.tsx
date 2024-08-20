@@ -9,7 +9,6 @@ import { ChatShareDialog } from '@/components/chat/chat-share-dialog'
 import { useAIState, useActions, useUIState } from 'ai/rsc'
 import type { AI } from '@/app/actions'
 import { nanoid } from 'nanoid'
-import { UserMessage } from '../stocks/message'
 
 export interface ChatPanelProps {
   id?: string

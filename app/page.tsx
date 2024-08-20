@@ -14,6 +14,7 @@ import { useAuth } from '@/lib/auth'
 
 import { LLMModel, LLMModelConfig } from '@/lib/models'
 import modelsList from '@/lib/models.json'
+import { signOut } from '@/auth'
 
 export default function Home() {
   const [chatInput, setChatInput] = useLocalStorage('chat', '')
@@ -37,7 +38,7 @@ export default function Home() {
   const { messages, append, reload, stop, isLoading, input, setInput } = useChat({
     api: '/api/chat',
     body: {
-      userID: session?.userId,
+      userID: session?.user.id,
       template: selectedTemplate,
       model: currentModel,
       config: languageModel,
