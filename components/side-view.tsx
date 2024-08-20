@@ -10,17 +10,14 @@ import {
   TabsList,
   TabsTrigger,
 } from '@/components/ui/tabs'
-import { DeployDialog } from '@/components/deploy-dialog'
 import { Button } from "@/components/ui/button"
 import { Link, Copy } from 'lucide-react'
 
 export function SideView({
-  // userID,
   toolInvocation,
   data,
   selectedTemplate,
 }: {
-  // userID: string
   toolInvocation?: ToolInvocation
   data?: JSONValue[]
   selectedTemplate: SandboxTemplate
@@ -77,9 +74,6 @@ export function SideView({
               <Link className="h-4 w-4" />
             </Button>
           )}
-          {/* {selectedTemplate === SandboxTemplate.NextJS && (
-            <DeployDialog userID={userID} />
-          )} */}
           </div>
         </div>
 

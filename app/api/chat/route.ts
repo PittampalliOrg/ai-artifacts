@@ -1,6 +1,5 @@
 import { z } from 'zod'
 import {
-  type CoreMessage,
   StreamingTextResponse,
   StreamData,
   streamText,
@@ -22,11 +21,6 @@ import { prompt as streamlitPrompt } from '@/lib/streamlit-prompt'
 import { getModelClient } from '@/lib/models'
 import { LLMModel, LLMModelConfig } from '@/lib/models'
 
-export interface ServerMessage {
-  role: 'user' | 'assistant' | 'function';
-  content: string;
-}
-
 export const maxDuration = 60
 
 const rateLimitMaxRequests = 5
@@ -45,7 +39,7 @@ export async function POST(req: Request) {
     })
   }
 
-  const { messages, userID, template, model, config, apiKey }: { messages: CoreMessage[], userID: string, template: SandboxTemplate, model: LLMModel, config: LLMModelConfig, apiKey: string } = await req.json()
+  const { messages, userID, template, model, config, apiKey } = await req.json()
   console.log('userID', userID)
   console.log('template', template)
   console.log('apiKey', apiKey)
@@ -56,7 +50,7 @@ export async function POST(req: Request) {
   const modelClient = getModelClient(model, config)
 
   let data: StreamData = new StreamData()
-  let result: StreamTextResult<any>
+  let result: StreamTextResult
 
   if (template === SandboxTemplate.CodeInterpreterMultilang) {
     result = await streamText({
@@ -124,7 +118,6 @@ export async function POST(req: Request) {
               tool: 'writeCodeToPageTsx',
               state: 'complete',
             })
-
 
             return {
               url,

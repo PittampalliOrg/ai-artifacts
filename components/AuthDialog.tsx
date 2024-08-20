@@ -1,20 +1,20 @@
-import {
-  Dialog,
-  DialogContent,
-  DialogTitle,
-} from "@/components/ui/dialog"
-import AuthForm from "./AuthForm"
-import { SupabaseClient } from "@supabase/supabase-js"
-import { VisuallyHidden } from "@radix-ui/react-visually-hidden"
+'use client'
 
-export function AuthDialog({ open, setOpen, supabase }: { open: boolean, setOpen: (open: boolean) => void, supabase: SupabaseClient }) {
+import { Dialog, DialogContent, DialogTitle } from "@/components/ui/dialog"
+import { signIn } from "@/auth"
+import { Button } from "@/components/ui/button"
+
+export function AuthDialog({ open, setOpen }: { open: boolean, setOpen: (open: boolean) => void }) {
   return (
     <Dialog open={open} onOpenChange={setOpen}>
       <DialogContent>
-        <VisuallyHidden>
-          <DialogTitle>Sign in to E2B</DialogTitle>
-        </VisuallyHidden>
-        <AuthForm supabase={supabase} />
+        <DialogTitle>Sign in to E2B</DialogTitle>
+        <Button
+          onClick={() => signIn('azure-ad', { callbackUrl: '/' })}
+          className="w-full"
+        >
+          Sign in with Microsoft
+        </Button>
       </DialogContent>
     </Dialog>
   )
